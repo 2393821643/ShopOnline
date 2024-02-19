@@ -270,6 +270,11 @@ spring:
     nacos:
       discovery:
         server-addr: {ip}:8848 #nacos地址
+    sentinel:
+      transport:
+        dashboard: {ip}:8858 # sentinel dashboard的ip
+        clientIp: {cli ip} # 非本地环境必须配置 (运行机器的ip 即localhost)
+      eager: false # 饥饿加载是否开启
 
   rabbitmq:
     host: {ip}
@@ -292,10 +297,9 @@ feign:
     enabled: true #开启feign对httpclient的支持
     max-connections: 200 #最大连接数
     max-connections-per-route: 50 #每个路径的最大连接数
-  hystrix:
+  sentinel:
     enabled: true
-  circuitbreaker:
-    enabled: true
+
 ```
 
 ## user-server
