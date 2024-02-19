@@ -41,6 +41,7 @@ public class UserController {
     //获取登录后用户信息
     @GetMapping("/after-login")
     public Result getUserAfterLogin(){
+        //throw new RuntimeException("get error");
         return new Result(UserHolder.getUser(),null,null);
     }
 
