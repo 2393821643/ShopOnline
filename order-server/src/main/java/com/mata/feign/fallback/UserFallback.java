@@ -14,8 +14,7 @@ public class UserFallback implements FallbackFactory<UserClient> {
         return new UserClient() {
             @Override
             public Result getUserAfterLogin(String token) {
-                log.info("获取失败xxxxx");
-                return new Result("test",null,null);
+                return new Result(null,null,null);
             }
         };
     }

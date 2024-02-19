@@ -138,22 +138,20 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Result getOrderByUserId(String token) {
         Result userAfterLogin = userClient.getUserAfterLogin(token);
-        return userAfterLogin;
-//        System.out.println(userAfterLogin.toString());
-//        //判断用户登录信息
-//        if (userAfterLogin == null) {
-//            return new Result(false, Code.USER_MESSAGE_ERR, "获取用户信息失败");
-//        }
-//        //获取token获取的User对象
-//        //将转化为实体对象
-//        Object objUser = userAfterLogin.getData();
-//        String userJson = JSONUtil.toJsonStr(objUser);
-//        User user = JSONUtil.toBean(userJson, User.class);
-//        //从数据库获取订单
-//        LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
-//        wrapper.eq(Order::getUserId, user.getUserId());
-//        List<Order> orders = orderDao.selectList(wrapper);
-//        return new Result(orders, null, null);
+        //判断用户登录信息
+        if (userAfterLogin.getData() == null) {
+            return new Result(false, Code.USER_MESSAGE_ERR, "获取用户信息失败");
+        }
+        //获取token获取的User对象
+        //将转化为实体对象
+        Object objUser = userAfterLogin.getData();
+        String userJson = JSONUtil.toJsonStr(objUser);
+        User user = JSONUtil.toBean(userJson, User.class);
+        //从数据库获取订单
+        LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Order::getUserId, user.getUserId());
+        List<Order> orders = orderDao.selectList(wrapper);
+        return new Result(orders, null, null);
     }
 
 
